@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <meta property="og:title" content="कोरोना तथ्याङ्क : नेपाल"/>
+    <meta property="og:url" content="http://corona.nirdeshpokhrel.com.np/"/>
+    <meta property="og:description" content="'हेर्नुहोस् हाल नेपालमा कति संक्रमित भए, कति निको भए, कतिको ज्यान गयो ।"/>
+    <meta property="og:image" content="http://corona.nirdeshpokhrel.com.np/Corona-Featured.png"/>
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name " content="nirdeshpokhrel"/>
+        <title>कोरोना तथ्याङ्क : नेपाल</title>
+        <link rel="shortcut icon" href="http://corona.nirdeshpokhrel.com.np/corona-favicon.png">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=592111964906492&autoLogAppEvents=1"></script>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ne_NP/sdk.js#xfbml=1&version=v6.0&appId=1255393357982718&autoLogAppEvents=1"></script>
+    <div class="header">
+        <div class="logo">
+            <a href="http://corona.nirdeshpokhrel.com.np/"><img src="./assets/logo.png" alt="Corona Live Data Nepal"></a>
+        </div>
+        <div class="site-title">नेपालमा कोरोना भाईरस संक्रमणको तथ्यांक</div>
+    </div>
+    <!-- Header END -->
+
+    <div class="infected-container">
+        <div class="infected">
+            <div class="value iv"></div>
+            <div class="label">संक्रमित</div>
+        </div>
+    </div>
+
+
+
+
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <script>
+        const xlabels = [];
+        const alabels = [100055,15112151,15156161];
+        const ylabels = [];
+
+            plotData();
+            async function getData(){
+                await $.getJSON('https://pomber.github.io/covid19/timeseries.json', function(data){
+                data.China.forEach(element => {
+                    // console.log(element);
+                    // console.log(element.confirmed);
+                    const date = element.date;
+                    xlabels.push(date);
+                    const confirmed = element.confirmed;
+                    ylabels.push(confirmed);
+                    });
+                });
+            }
+
+            async function plotData(){
+                await getData();
+                var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'bar',
+
+            // The data for our dataset
+            data: {
+                labels: xlabels,
+                datasets: [{
+                    label: 'कोरोना संक्रमित: ',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    fill: false,
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: ylabels
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+            }         
+        console.log(xlabels);
+        console.log(ylabels);
+
+    </script>
+
+    
+<!-- =====================Share buttons -->
+<div class="share">
+    <div class="fb-share-button" data-href="http://corona.nirdeshpokhrel.com.np/nepal/?i=1" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcorona.nirdeshpokhrel.com.np%2Fnepal%2F%3Fi%3D1&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+</div>
+<!-- =====================Share buttons -->
+
+
+
+    <div class="grid-container">
+        <div class="recover-container">
+            <div class="recover">
+                <div class="value rv"></div>
+                <div class="label">निको भएका</div>
+            </div>
+        </div>
+        <div class="dead-container">
+            <div class="dead">
+                <div class="value dv"></div>
+                <div class="label">मृत्यु भएका</div>
+            </div>
+        </div>
+        <div class="tested-container">
+            <div class="tested">
+                <div class="value tv"></div>
+                <div class="label">परिक्षण गरिएका</div>
+            </div>
+        </div>
+        <div class="positive-container">
+            <div class="positive">
+                <div class="value pv"></div>
+                <div class="label">नेगेटिभ</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="comment">
+        <div class="title">केहि सुझाव भए तल लेखिदिनु होला।</div>
+        <div class="fb-comments" data-href="http://corona.nirdeshpokhrel.com.np/nepal/?i=1" data-width="100vh" data-numposts="5"></div>
+    </div>
+
+    
+    <div class="date">प्रकाशित मिति : </div>
+    <div class="footer-notice">
+        <div class="icon">
+            <img src="./assets/icon.png" alt="">
+        </div>
+        <div class="label">मास्कको प्रयोग सधैं गरौँ।</div>
+    </div>
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
